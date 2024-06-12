@@ -1,0 +1,223 @@
+* {
+  color: #f4f6f4;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-image: url(OIP.jpeg);
+  padding: 10px 0;
+  background-size: cover; /* Cover the entire element */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent repetition */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: center;
+  /* top: 0; */
+  position: relative;
+  align-items: center;
+  animation: slide-in-background 2s forwards;
+}
+@keyframes slide-in-background {
+  0% {
+    background-position: top center; /* Start at the top */
+  }
+  100% {
+    background-position: center center; /* Move to the center */
+  }
+}
+.fixed-text-container {
+  position: absolute;
+  top: 50%; /* Adjust as needed */
+  left: -100%; /* Start off-screen */
+  animation: slide-in 2s forwards; /* Animation to slide in */
+}
+
+.fixed-text {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 7vw;
+  line-height: 100px;
+  font-weight: bolder;
+  text-shadow: -3px 1px 3px rgb(43, 43, 43);
+}
+@keyframes slide-in {
+  0% {
+    left: -100%; /* Start off-screen */
+  }
+  100% {
+    left: 10%; /* Move to the middle */
+  }
+}
+.contact {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #47695B;
+  padding: 10px;  
+}
+
+.contact p {
+  padding: 12px;
+}
+
+.contact a {
+  text-decoration: none;
+  padding: 12px;
+}
+.contact img{
+  height: 30px;
+  transition: 0.1s ease-in;
+
+}
+.contact img:hover{
+  box-shadow: 2px 5px 12px 1px #91c0ae;
+  transform: translateY(-2px);
+}
+
+nav {
+  position: absolute;
+  top: 12px;
+
+  background: #659e86; /* Semi-transparent background */
+  padding: 10px 0;
+  z-index: 1000;
+  border-radius: 23px;
+  transition: top 0.4s;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around; /* Distribute items evenly */
+    flex-wrap: nowrap; /* Prevent items from wrapping */
+    }
+    
+    nav ul li a:hover {
+      background-color: #38383899;
+      border-radius: 23px;
+      }
+      
+      nav ul li a {
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        text-overflow: ellipsis;
+}
+/* @media screen and (max-width: 800px) {
+  nav {
+    display: none;
+  }
+} */
+
+main {
+  padding: 20px;
+}
+
+footer {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 10px 0;
+  /* position: fixed; */
+  width: 100%;
+  bottom: 0;
+}
+nav ul li a,
+.drop-down p {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.drop-down {
+  position: relative;
+  display: inline-block;
+}
+.dropbtn {
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.down {
+  display: none;
+  transition: 0.3s ease-in-out;
+  border-radius: 12px;
+  position: absolute;
+  background-color: rgba(244, 241, 241);
+  min-width: 160px;
+  z-index: 1;
+  box-shadow: 4px 4px 8px 0 rgb(0, 0, 0, 0.5);
+}
+
+.down a {
+  color: black;
+  text-decoration: none;
+  margin: 5px;
+  padding: 12px 12px;
+  text-wrap: nowrap;
+  display: inline-block;
+}
+
+.down a:hover {
+  background-color: #d1d0d0;
+}
+@media screen and (max-width: 600px) {
+  /* .contact {
+    flex-direction: column;
+    text-align: center;
+  } */
+  nav{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 30px 0;
+    width: 100px;
+    text-wrap: wrap;
+    position: fixed;
+  }
+  nav a{
+    text-align: center;
+    font-size: 16px;
+  }
+
+  nav ul{
+    flex-direction: column;
+    text-align: center;
+  }
+  .fixed-text {
+    font-size: 10vw;
+    line-height: 50px;
+  }
+
+  .fixed-text-container {
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  header {
+    height: 50vh;
+    flex-wrap: wrap;
+  }
+ 
+}
+main{
+  height: 300vh;
+  margin: 0;
+padding: 0;
+}
+.about-college{
+  height:100vh;
+  background-color: #47695B;
+}
