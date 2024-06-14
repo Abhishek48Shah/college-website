@@ -1,14 +1,3 @@
-// window.onscroll = function() {scrollFunction()};
-
-// function scrollFunction() {
-//   if (document.body.scrollTop > 1 || document.documentElement.scrollTop > 1) {
-//     document.getElementById("navbar").style.top = "-40px"; // Adjust this value to move the navbar up
-//   } else {
-//     document.getElementById("navbar").style.top = "0";
-//   }
-// }
-
-  
 /*
 
 ------------------------------
@@ -45,3 +34,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
+  window.addEventListener('scroll', function() {
+    var navbar = document.getElementById('navbar');
+    var main = document.getElementById('main');
+    var distanceToMain = main.getBoundingClientRect().top;
+  
+    // Check if the main content is within 100 pixels of the nav
+    if (distanceToMain <= 170) {
+      navbar.classList.add('color-change');
+    } else {
+      navbar.classList.remove('color-change');
+    }
+  });
+  window.addEventListener('scroll', function() {
+    var contactSection = document.querySelector('.contact');
+    var main = document.getElementById('main');
+    var distanceToMain = main.getBoundingClientRect().top;
+  
+    // Check if the main content is within a certain distance of the contact section
+    if (distanceToMain <= 170) { // Adjust the '100' value as needed
+      contactSection.classList.add('color-change');
+    } else {
+      contactSection.classList.remove('color-change');
+    }
+  });
+  function scrollToMain() {
+    var mainElement = document.getElementById('main');
+    var offset = 100; // The distance you want to stop before reaching 'main', in pixels
+    var bodyRect = document.body.getBoundingClientRect().top;
+    var elementRect = mainElement.getBoundingClientRect().top;
+    var elementPosition = elementRect - bodyRect;
+    var offsetPosition = elementPosition - offset;
+  
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
