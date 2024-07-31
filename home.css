@@ -284,9 +284,13 @@ footer {
 
 @media screen and (max-width: 600px) {
   main {
-    margin-top: 57vh;
+    background-color: #006064;
+    margin-top: 98vh;
   }
-  
+  nav{
+    display: none;
+  }
+ 
   nav ul {
     flex-direction: column;
     text-align: center;
@@ -303,9 +307,13 @@ footer {
   }
   
   header {
-    height: 70vh;
+    height: 90vh;
   }
-  
+  header button{
+    /* height: 100px; */
+    position: relative;
+    bottom:-300px;
+  }
   .about-college h1, .college-news h1 {
     font-size: 1.8rem;
   }
@@ -322,8 +330,10 @@ footer {
   
 }
 
+
 main .college-news {
-  background-color: #f4f4f4;
+  background-color: #3e5e5b;
+  /* background-color: #f4f4f4; */
 }
 
 main .college-news p, .college-news h1 {

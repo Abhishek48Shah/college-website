@@ -58,16 +58,76 @@ document.addEventListener('DOMContentLoaded', () => {
       contactSection.classList.remove('color-change');
     }
   });
-  function scrollToMain() {
-    var mainElement = document.getElementById('main');
-    var offset = 100; // The distance you want to stop before reaching 'main', in pixels
-    var bodyRect = document.body.getBoundingClientRect().top;
-    var elementRect = mainElement.getBoundingClientRect().top;
-    var elementPosition = elementRect - bodyRect;
-    var offsetPosition = elementPosition - offset;
   
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
+
+
+function toggleNav() {
+  const navbar = document.getElementById('navbar');
+  const content = document.getElementById('main');
+  navbar.classList.toggle('show');
+  content.classList.toggle('blurred');
+}
+
+document.addEventListener('click', function(event) {
+  const navbar = document.getElementById('navbar');
+  const content = document.getElementById('main');
+  const navIcone = document.querySelector('.navIcone');
+
+  if (!navbar.contains(event.target) && !navIcone.contains(event.target)) {
+    navbar.classList.remove('show');
+    content.classList.remove('blurred');
   }
+});
+
+
+
+
+
+
+
+
+function smoothScroll(target, duration) {
+  let targetPosition;
+  if (typeof target === 'string') {
+    let targetElement = document.querySelector(target);
+    if (targetElement) {
+      targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset-100;
+    } else {
+      console.error('Target element not found');
+      return;
+    }
+  } else if (typeof target === 'number') {
+    targetPosition = target;
+  } else {
+    console.error('Invalid target type');
+    return;
+  }
+
+  let startPosition = window.pageYOffset;
+  let startTime = null;
+
+  function animation(currentTime) {
+    if (startTime === null) startTime = currentTime;
+    let timeElapsed = currentTime - startTime;
+    let run = ease(timeElapsed, startPosition, targetPosition - startPosition, duration);
+    window.scrollTo(0, run);
+    if (timeElapsed < duration) requestAnimationFrame(animation);
+  }
+
+  function ease(t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+  }
+
+  requestAnimationFrame(animation);
+}
+
+function scrollToMain() {
+  smoothScroll('main', 1000); // Scroll to <main> over 1000 milliseconds (1 second)
+}
+
+function scrollToPosition(position) {
+  smoothScroll(position, 1000); // Scroll to a specific position over 1000 milliseconds (1 second)
+}
