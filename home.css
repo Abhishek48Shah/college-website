@@ -1,530 +1,94 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  color: #f4f6f4;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.hover\:underline-effect::before {
+      @apply absolute left-0 bottom-1;
+      content: "";
+      height: 2px;
+      width: 100%;
+      background-color:rgb(50, 30, 224);
+      transform: scale(0);
+      transform-origin: center;
+      transition: transform 0.5s linear;
+    }
+    
+    .hover\:underline-effect:hover::before {
+      transform: scale(1);
+    }
+   
+    .shadow-navbar {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    /* #nav2.hidden {
+      display: none;
+    } */
+    
+    #nav2.show {
+      display: block ; 
+      font-size: 16px;
+    }
+    
 
-body {
-  font-family: Arial, sans-serif;
-  
-}
+    .blurred {
+      filter: blur(2px);
+      transition: filter 0.3s ease;
+    }
+    /* head master ko photo effect ho muji */
+    .background-overlay {
+      transition: filter 0.5s ease-in-out; /* Smooth transition for blur */
+    }
+    .background-overlay.blur {
+      filter: blur(5px); /* Apply blur effect */
+    }
+    .description-container {
+      opacity: 0; /* Initially hidden */
+      transition: opacity 0.5s ease-in-out; /* Smooth transition */
+    }
+    .description-container.show {
+      opacity: 1; /* Show content */
+    }
 
-header {
-  background-image: url(5.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 70px;
-  left: 0; 
-  width: 100%;
-  z-index: 0;
-  animation: slide-in-background 2s forwards;
-}
 
-@keyframes slide-in-background {
-  0% {
-    background-position: top center;
-  }
-  100% {
-    background-position: center center;
-  }
-}
 
-.fixed-text-container {
-  position: absolute;
-  top: 50%;
-  left: -100%;
-  animation: slide-in 2s forwards;
-}
 
-.fixed-text {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  font-size: 7vw;
-  line-height: 100px;
-  font-weight: bolder;
-  text-shadow: -3px 1px 3px rgb(43, 43, 43);
-}
+    .button {
+      position: relative;
+      padding: 16px 32px; /* Adjust padding as needed */
+      font-weight: bold;
+      color: black;
+      background-color: transparent; /* Button's initial background color */
+      border: 1px solid black; /* Border color */
+      border-radius: 9999px; /* Fully rounded corners */
+      overflow: hidden;
+      transition: color 0.5s ease-in-out; /* Smooth text color transition */
+    }
+    
+    .button-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgb(50, 30, 224);
+      transform: scaleX(0);
+      transform-origin:right;
+      border-radius: 120px;
+      transition: transform 0.5s ease-in-out;
+      z-index: 0; /* Ensure background is below the text */
+    }
+    
+    
+    .button:hover .button-background {
+      transform: scaleX(1);
+      transform-origin:left;
+    }
 
-@keyframes slide-in {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 10%;
-  }
-}
-
-header button {
-  color: white;
-  position: relative;
-  bottom: -277px;
-  padding: 12px;
-  background-color:#47695B;
-  box-shadow: inset -10px -10px 10px 10px rgba(0, 0, 0, 0.308);
-  border: none;
-  font-size: 18px;
-  font-weight: bolder;
-  transition: background-color 0.5s ease;
-  width: 100%;
-}
-
-header svg {
-  transition: fill 0.5s ease;
-}
-
-button:hover svg {
-  transform: translateY(5px);
-}
-
-.contact {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* background-color:#4a4b4a; */
-  /* box-shadow: inset 0 -10px 10px  rgba(0, 0, 0, 0.308); */
-  color: #000000;
-  padding: 10px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1010;
-}
-.contact.color-change{
-  background-color:#006064 ;
-  /* color: white; */
-}
-
-.contact p {
-  /* padding: 12px; */
-  color: #000000;
-  font-weight:bolder ;
-}
-
-.contact a {
-  /* color: #000000; */
-  text-decoration: none;
-  padding: 12px;
-  /* color: white; */
-}
-
-.contact svg {
-  height: 30px;
-  transition: fill 0.3s ease, transform 0.3s ease;
-}
-
-.contact svg:hover {
-  transform: translateY(-4px);
-}
-
-/* Navbar Styles */
-nav {
-  position: fixed; 
-  top: 57px;
-  opacity: 2;
-  background-color: white;
-  /* box-shadow: inset -10px -10px 10px 10px rgba(0, 0, 0, 0.308); */
-  padding: 10px 0;
-  z-index: 1010;
-  width: 100%;
-  transition: top 0.4s, position 0.4s;
-}
-nav.color-change{
-  background-color:  #47695B;
-  color: white;
- }
+    .button:hover {
+      color: white; /* Text color on hover */
+    }
+    
+    .button-text {
+      position: relative;
+      z-index: 1; /* Ensure text is above the background */
+    }
  
- 
- nav ul {
-   list-style-type: none;
-   display: flex;
-   text-align: center;
-   padding: 0 30px;
-   text-align: center;
-   justify-content: center;
-  }
-
-  nav ul li a {
-    position: relative;
-    color:black;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-nav ul li a::before {
-  position: absolute;
-  content: "";
-  left: 0;
-  bottom: 5px;
-  height: 2px;
-  width: 100%;
-  background-color: rgb(248, 246, 246);
-  transform: scale(0);
-  transform-origin: center;
-  transition: transform 0.5s linear;
-}
-
-nav ul li a:hover::before {
-  transform: scale(1);
-  transform-origin: center;
-}
-
-.drop-down {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  /* color: white; */
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-}
-
-.down {
-  display: none;
-  transition: 0.3s ease-in-out;
-  border-radius: 12px;
-  position: absolute;
-  background-color: #c5e1a5;
-  min-width: 160px;
-  z-index: 1;
-  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.5);
-}
-
-.down a {
-  color: black;
-  text-decoration: none;
-  margin: 5px;
-  padding: 12px;
-  display: block;
-}
-
-main {
-  position: relative;
-  z-index: 1;
-  margin-top: 100vh;
-  width: 100%;
-}
-
-.about-college, .college-news, .academics {
-  height: 90vh;
-  text-align: center;
-  padding: 20px;
-}
-
-.about-college {
-  background-color: #FFFFFF;
-}
-
-.about-college h1, .college-news h1, .academics h1 {
-  position: relative;
-  top: 50px;
-  font-size: 3rem;
-  color: #000000;
-}
-
-.about-college p, .college-news p, .academics p {
-  padding: 12px;
-  font-size: 2rem;
-  color: #000000;
-  position: relative;
-  top: 100px;
-}
-
-.about-college button {
-  margin-top: 40px;
-  padding: 15px;
-  color: white;
-  border-radius: 50px;
-  font-weight: bolder;
-  font-size: 1.5rem;
-  border: none;
-  background-color:  #47695B;
-  box-shadow: inset 0 -1px -100px 100px rgba(0, 0, 0, 0.308);
-  position: relative;
-  top: 150px;
-}
-
-.about-college button::before {
-  position: absolute;
-  content: "";
-  left: 18px;
-  bottom: 9px;
-  height: 2px;
-  width: 90%;
-  background-color: rgb(250, 250, 251);
-  transform: scale(0);
-  transform-origin: center;
-  transition: transform 0.5s linear;
-}
-
-.about-college button:hover::before {
-  transform: scale(1);
-  transform-origin: center;
-}
-
-.academics {
-  background-color: #FFFFFF;
-}
-
-footer {
-  background-color: #3e5e5b;
-  text-align: center;
-  padding: 10px 0;
-  width: 100%;
-  bottom: 0;
-}
-
-@media screen and (max-width: 600px) {
-  main {
-    background-color: #006064;
-    margin-top: 98vh;
-  }
-  nav{
-    display: none;
-  }
- 
-  nav ul {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .fixed-text {
-    font-size: 11vw;
-    line-height: 50px;
-  }
-  
-  .fixed-text-container {
-    left: 90%;
-    transform: translateX(-10%);
-  }
-  
-  header {
-    height: 90vh;
-  }
-  header button{
-    /* height: 100px; */
-    position: relative;
-    bottom:-300px;
-  }
-  .about-college h1, .college-news h1 {
-    font-size: 1.8rem;
-  }
-  
-  .about-college p, .college-news p {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-  
-  .about-college button {
-    font-size: 0.9rem;
-  }
- 
-  
-}
-
-
-main .college-news {
-  background-color: #3e5e5b;
-  /* background-color: #f4f4f4; */
-}
-
-main .college-news p, .college-news h1 {
-  color: black;
-}
-
-@media screen and (max-width: 1000px) {
-  .about-college h1, .college-news h1 {
-    position: relative;
-    top: 45px;
-    font-size: 3rem;
-    color: rgb(9, 9, 9);
-  }
-  
-  .about-college p, .college-news p {
-    padding: 8px;
-    font-size: 2em;
-    color: black;
-    position: relative;
-    top: 70px;
-    line-height: 39px;
-  }
-  
-  .about-college button {
-    margin-top: 40px;
-    padding: 15px;
-    color: white;
-    border-radius: 50px;
-    font-weight: bolder;
-    font-size: 1.5rem;
-    border: none;
-    background-color: #47695B;
-    position: relative;
-    top: 30px;
-  }
-  
-  .fixed-text {
-    font-size: 12vw;
-    line-height: 80px;
-  }
-  
-  .fixed-text-container {
-    left: 90%;
-    transform: translateX(-10%);
-  }
-  
-  nav {
-    text-align: center;
-    text-wrap: wrap;
-    font-size: 14px;
-  }
-  
-  nav ul li a::before {
-    position: absolute;
-    content: "";
-    left: 0;
-    bottom: 5px;
-    height: 2px;
-    width: 100%;
-    background-color: rgb(248, 246, 246);
-    transform: scale(0);
-    transform-origin: center;
-    transition: transform 0.5s linear;
-  }
-  
-  nav ul li a:hover::before {
-    transform: scale(1);
-    transform-origin: center;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .fixed-text {
-    font-size: 12vw;
-    line-height: 80px;
-  }
-  
-  .fixed-text-container {
-    left: 90%;
-    transform: translateX(-10%);
-  }
-  
-  nav {
-    text-align: center;
-    text-wrap: wrap;
-    font-size: 14px;
-  }
-  
-  nav ul li a::before {
-    position: absolute;
-    content: "";
-    left: -20px;
-    bottom: 5px;
-    height: 2px;
-    width: 100%;
-    background-color: rgb(248, 246, 246);
-    transform: scale(0);
-    transform-origin: center;
-    transition: transform 0.5s linear;
-  }
-  
-  nav ul li a:hover::before {
-    transform: scale(1);
-    transform-origin: center;
-  }
-  
-  .about-college h1, .college-news h1 {
-    position: relative;
-    top: 40px;
-    font-size: 3rem;
-    color: rgb(9, 9, 9);
-  }
-  
-  .about-college p, .college-news p {
-    padding: 8px;
-    font-size: 2em;
-    color: black;
-    position: relative;
-    top: 60px;
-    line-height: 39px;
-  }
-  
-  .about-college button {
-    padding: 15px;
-    color: white;
-    border-radius: 50px;
-    font-weight: bolder;
-    font-size: 1.5rem;
-    border: none;
-    background-color: #47695B;
-    position: relative;
-    top: 20px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .about-college h1, .college-news h1 {
-    position: relative;
-    top: 40px;
-    font-size: 3rem;
-    color: rgb(9, 9, 9);
-  }
-  
-  .about-college p, .college-news p {
-    padding: 4px;
-    font-size: 1.5em;
-    color: black;
-    position: relative;
-    top: 60px;
-    line-height: 39px;
-  }
-  
-  .about-college button {
-    padding: 15px;
-    color: white;
-    border-radius: 50px;
-    font-weight: bolder;
-    font-size: 1.5rem;
-    border: none;
-    background-color: #47695B;
-    position: relative;
-    top: 20px;
-  }
-}
-
-@media screen and (max-width: 580px) {
-  .about-college h1, .college-news h1 {
-    position: relative;
-    top: 40px;
-    font-size: 3rem;
-    color: rgb(9, 9, 9);
-  }
-  
-  .about-college p, .college-news p {
-    padding: 4px;
-    font-size: 1.5em;
-    color: black;
-    position: relative;
-    top: 60px;
-    line-height: 39px;
-  }
-  
-  .about-college button {
-    padding: 15px;
-    color: white;
-    border-radius: 50px;
-    font-weight: bolder;
-    font-size: 1.5rem;
-    border: none;
-    background-color: #47695B;
-    position: relative;
-    top: 20px;
-  }
-}
