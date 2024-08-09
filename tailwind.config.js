@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./home.html"],
+  content: ["./home.html","./About.html"],
   theme: {
     extend: {
       letterSpacing:{
@@ -15,9 +15,12 @@ module.exports = {
       animation: {
         slideIn: 'slideIn 2s ease-out forwards',
       },
-      
+      fontSize: {
+        'custom' : '1rem',
+      },
       height: {
         'custom':'90vh',
+        'largeHight' : '150vh',
       },
       colors: {
         'color' : '#FFFFFF',

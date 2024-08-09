@@ -1,47 +1,25 @@
-
-document.addEventListener('DOMContentLoaded', () => {
-  const dropdownButtons = document.querySelectorAll('.dropbtn');
-
-  dropdownButtons.forEach(dropbtn => {
-    dropbtn.addEventListener('click', (event) => {
-      event.preventDefault();
-      const dropdownContent = dropbtn.nextElementSibling;
-
-      // Close any other open dropdowns
-      document.querySelectorAll('.down').forEach(content => {
-        if (content !== dropdownContent) {
-          content.style.display = 'none';
-        }
-      });
-
-      // Toggle the clicked dropdown
-      dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-    });
-  });
-
-  // Close the dropdowns if the user clicks outside of any dropdown
-  window.addEventListener('click', (event) => {
-    if (!event.target.matches('.dropbtn')) {
-      document.querySelectorAll('.down').forEach(content => {
-        content.style.display = 'none';
-      });
-    }
-  });
-});
-
-
-
 document.addEventListener('DOMContentLoaded', (event) => {
+  /*
+  ----------->
+  This code manages the display of a responsive navigation bar by toggling visibility and blurring the main content on small screens, saving and restoring the navigation state using local storage, hiding the navbar on large screens, and highlighting the active link based on the current page URL.
+  <-----------
+  */
+
   const navbar = document.getElementById('nav2');
   const content = document.getElementById('main');
   const navIcone = document.querySelector('.navIcone');
+  const navLinks = document.querySelectorAll('#nav2 a');
 
   function toggleNav() {
-    if (navbar) {
-      navbar.classList.toggle('show');
-    }
-    if (content) {
-      content.classList.toggle('blurred');
+    if (window.innerWidth < 1280) { // Ensure toggle only works on small screens
+      if (navbar) {
+        navbar.classList.toggle('show');
+      }
+      if (content) {
+        content.classList.toggle('blurred');
+      }
+      // Save the state to localStorage
+      localStorage.setItem('navVisible', navbar.classList.contains('show'));
     }
   }
 
@@ -52,19 +30,66 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   // Click outside to close the nav
   document.addEventListener('click', function(event) {
-    if (navbar && navIcone) {
-      if (!navbar.contains(event.target) && !navIcone.contains(event.target)) {
+    if (window.innerWidth < 1280) { // Ensure toggle only works on small screens
+      if (navbar && navIcone) {
+        if (!navbar.contains(event.target) && !navIcone.contains(event.target)) {
+          navbar.classList.remove('show');
+          content.classList.remove('blurred');
+          localStorage.setItem('navVisible', 'false');
+        }
+      }
+    }
+  });
+
+  // Listen for resize events
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 1280) {
+      if (navbar) {
+        navbar.classList.remove('show');
+      }
+      if (content) {
+        content.classList.remove('blurred');
+      }
+    } else {
+      // Restore navbar state based on localStorage
+      if (localStorage.getItem('navVisible') === 'true') {
+        navbar.classList.add('show');
+        content.classList.add('blurred');
+      } else {
         navbar.classList.remove('show');
         content.classList.remove('blurred');
       }
     }
   });
+
+  // Initialize navbar state based on localStorage and screen size
+  if (window.innerWidth < 1280 && localStorage.getItem('navVisible') === 'true') {
+    navbar.classList.add('show');
+    content.classList.add('blurred');
+  }
+
+  // Hide navbar when navigating to another page
+  window.addEventListener('beforeunload', () => {
+    if (window.innerWidth < 1280) {
+      localStorage.setItem('navVisible', 'false');
+    }
+  });
+
+  // Highlight the active link based on the current URL
+  const currentPage = window.location.pathname.split('/').pop();
+  navLinks.forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
+    }
+  });
 });
 
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
+ /*
+ --------->
+   This code manages the transition of main content and changes the color of the navbar.
+<----------
+  */
   function smoothScroll(target, duration) {
     let targetPosition;
     if (typeof target === 'string') {
@@ -132,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
       navbar2.classList.add('bg-color', 'text-black');
       navbar2.classList.remove('text-white');
       navbar2.classList.add('shadow-navbar'); // Add shadow class
+      
     } else {
       navbar1.classList.remove('bg-blue-900', 'text-white');
       navbar2.classList.add('text-white');
@@ -139,11 +165,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+
+  const menuIcon = document.getElementById('menuIcon');
+  const menuText = document.getElementById('menuText');
+  const menuSvg = document.getElementById('menuSvg');
+  const closeSvg = document.getElementById('closeSvg');
+  // const nav2 = document.getElementById('nav2');
+  // const contentWrapper = document.getElementById('contentWrapper');
+
+  menuIcon.addEventListener('click', () => {
+    if (menuText.textContent === 'Menu') {
+      menuText.textContent = 'Close';
+      menuSvg.classList.add('hidden');
+      closeSvg.classList.remove('hidden');
+      nav2.classList.remove('hidden');
+    } else {
+      menuText.textContent = 'Menu';
+      menuSvg.classList.remove('hidden');
+      closeSvg.classList.add('hidden');
+      nav2.classList.add('hidden');
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!nav2.contains(event.target) && !menuIcon.contains(event.target) && !nav2.classList.contains('hidden')) {
+      menuText.textContent = 'Menu';
+      menuSvg.classList.remove('hidden');
+      closeSvg.classList.add('hidden');
+      nav2.classList.add('hidden');
+    }
+  });
+
+
+
   window.addEventListener('scroll', toggleNavbarColor);
   window.scrollToMain = scrollToMain;
 });
 
-document.addEventListener('scroll', function() {
+document.addEventListener('scroll', function () {
+  /*
+  --------->
+  This code blur the background  and  display image and text  based on a certain distance from the viewport.
+  <---------
+  */
   const section = document.getElementById('target-section');
   const backgroundOverlay = section.querySelector('.background-overlay');
   const descriptionContainer = section.querySelector('.description-container');
@@ -152,9 +216,9 @@ document.addEventListener('scroll', function() {
   const windowHeight = window.innerHeight;
 
   // Start blurring the background when the section is halfway into the viewport
-  const blurTrigger = windowHeight/8;
+  const blurTrigger = windowHeight / 8;
   // Show the content when half of the section is visible
-  const contentShowTrigger =  windowHeight/8;
+  const contentShowTrigger = windowHeight / 8;
 
   if (sectionTop < blurTrigger && sectionBottom > 0) {
     // Section is at least halfway into the viewport
@@ -171,4 +235,24 @@ document.addEventListener('scroll', function() {
     // Section is not enough visible, hide content
     descriptionContainer.classList.remove('show');
   }
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const tooltipSection = document.getElementById('tooltip-section');
+  const tooltips = document.querySelectorAll('.tooltip');
+
+  window.addEventListener('scroll', function() {
+    const rect = tooltipSection.getBoundingClientRect();
+    if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+      tooltips.forEach(tooltip => {
+        tooltip.classList.add('show-tooltip');
+      });
+    } else {
+      tooltips.forEach(tooltip => {
+        tooltip.classList.remove('show-tooltip');
+      });
+    }
+  });
 });
